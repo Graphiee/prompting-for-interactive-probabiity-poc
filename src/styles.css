@@ -1,0 +1,325 @@
+:root {
+  --viz-paper: #eeeeec;
+  --viz-ink: #161616;
+  --viz-muted: #7f7a76;
+  --viz-border: rgba(30, 30, 30, 0.42);
+  --viz-grid: rgba(25, 25, 25, 0.055);
+  --viz-grid-strong: rgba(25, 25, 25, 0.11);
+  --viz-axis: #222222;
+  --viz-axis-muted: #77716c;
+  --viz-blue: #2f6bff;
+  --viz-blue-fill: rgba(47, 107, 255, 0.2);
+  --viz-red: #ff5f61;
+  --viz-red-fill: rgba(255, 95, 97, 0.22);
+  --viz-track: #c7c4c1;
+  --viz-white: #f7f7f5;
+  --viz-font-serif: Georgia, "Times New Roman", serif;
+  --viz-font-mono: "Courier New", Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    var(--viz-paper);
+  background-size: 36px 36px;
+  color: var(--viz-ink);
+  font-family: var(--viz-font-serif);
+}
+
+.viz-shell {
+  width: min(92vw, 860px);
+  min-height: 760px;
+  border: 1px solid var(--viz-border);
+  background:
+    linear-gradient(var(--viz-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--viz-grid) 1px, transparent 1px),
+    var(--viz-paper);
+  background-size: 36px 36px;
+}
+
+.viz-plot-region {
+  border-bottom: 1px solid rgba(30, 30, 30, 0.28);
+}
+
+.viz-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* .viz-grid-line {
+  stroke: var(--viz-grid-strong);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+} */
+
+.viz-axis-line {
+  stroke: var(--viz-axis);
+  stroke-width: 2;
+  shape-rendering: crispEdges;
+}
+
+.viz-tick-line {
+  stroke: var(--viz-axis-muted);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.viz-tick-label {
+  fill: var(--viz-axis-muted);
+  font-family: var(--viz-font-mono);
+  font-size: 12px;
+}
+
+.viz-axis-label-box {
+  fill: rgba(247, 247, 245, 0.76);
+  stroke: rgba(30, 30, 30, 0.28);
+}
+
+.viz-axis-label {
+  fill: var(--viz-axis-muted);
+  font-family: var(--viz-font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.viz-curve {
+  fill: var(--viz-blue);
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 3;
+}
+
+.viz-area-fill {
+  fill: var(--viz-blue-fill);
+}
+
+.viz-reference-line {
+  stroke: var(--viz-red);
+  stroke-width: 2;
+  stroke-dasharray: 10 9;
+  stroke-linecap: round;
+}
+
+.viz-reference-line-muted {
+  stroke: rgba(30, 30, 30, 0.58);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 9;
+}
+
+.viz-marker {
+  fill: var(--viz-red);
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 4;
+}
+
+.viz-x-label-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid rgba(30, 30, 30, 0.32);
+  background: rgba(247, 247, 245, 0.75);
+  color: var(--viz-axis-muted);
+  font-family: var(--viz-font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.viz-control-region {
+  min-height: 92px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 18px 16px;
+}
+
+.viz-control-symbol {
+  font-size: 32px;
+  font-style: italic;
+}
+
+.viz-tick-slider {
+  position: relative;
+  height: 46px;
+}
+
+.viz-tick-track {
+  position: absolute;
+  inset: 5px 0 auto 0;
+  height: 36px;
+  overflow: hidden;
+  background: repeating-linear-gradient(90deg,
+      var(--viz-track) 0 3px,
+      transparent 3px 10px);
+}
+
+.viz-tick-track-active {
+  width: 0;
+  height: 100%;
+  background: repeating-linear-gradient(90deg,
+      var(--viz-red) 0 3px,
+      transparent 3px 10px);
+}
+
+.viz-slider-hit-area {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.viz-slider-thumb {
+  position: absolute;
+  top: 1px;
+  width: 11px;
+  height: 44px;
+  border-radius: 2px;
+  background: var(--viz-white);
+  border: 1px solid rgba(30, 30, 30, 0.42);
+  box-shadow: 0 0 0 2px rgba(247, 247, 245, 0.55);
+  transform: translate(-50%, 0);
+  pointer-events: none;
+}
+
+.viz-play-pause-button {
+  width: 54px;
+  height: 54px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(30, 30, 30, 0.42);
+  border-radius: 50%;
+  background: rgba(247, 247, 245, 0.82);
+  color: var(--viz-red);
+  cursor: pointer;
+}
+
+.viz-play-pause-button:hover {
+  background: var(--viz-white);
+}
+
+.viz-play-pause-button:focus-visible {
+  outline: 2px solid var(--viz-red);
+  outline-offset: 3px;
+}
+
+.viz-play-icon {
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 18px solid currentColor;
+}
+
+.viz-pause-icon {
+  display: none;
+  gap: 6px;
+}
+
+.viz-pause-icon span {
+  width: 7px;
+  height: 26px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.viz-play-pause-button.is-playing .viz-play-icon {
+  display: none;
+}
+
+.viz-play-pause-button.is-playing .viz-pause-icon {
+  display: flex;
+}
+
+.viz-video-progress-control {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.viz-video-progress {
+  position: relative;
+  height: 32px;
+  min-width: 160px;
+}
+
+.viz-video-progress-track {
+  position: absolute;
+  inset: 13px 0 auto 0;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--viz-track);
+}
+
+.viz-video-progress-track-active {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--viz-red);
+}
+
+.viz-video-progress-hit-area {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.viz-video-progress-thumb {
+  position: absolute;
+  top: 7px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--viz-red);
+  box-shadow: 0 0 0 2px var(--viz-paper);
+  transform: translate(-50%, 0);
+  pointer-events: none;
+}
+
+.viz-video-progress-hit-area:focus-visible + .viz-video-progress-thumb {
+  box-shadow:
+    0 0 0 3px var(--viz-paper),
+    0 0 0 5px var(--viz-red);
+}
+
+.viz-readout {
+  min-width: 112px;
+  text-align: right;
+}
+
+.viz-readout-kicker {
+  display: block;
+  color: var(--viz-muted);
+  font-family: var(--viz-font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.viz-readout-value {
+  display: block;
+  color: var(--viz-red);
+  font-family: var(--viz-font-serif);
+  font-size: 32px;
+  line-height: 1;
+}
+
+.viz-readout-subtitle {
+  display: block;
+  color: var(--viz-muted);
+  font-family: var(--viz-font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+}

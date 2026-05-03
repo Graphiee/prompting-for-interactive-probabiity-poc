@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Probability Venn Diagram</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <main class="shell" aria-label="Interactive probability visualization">
+    <section class="visual-panel" aria-label="Sample space">
+      <div id="venn-root" class="venn-root"></div>
+      <p class="tip">Tip: drag a circle to move it. Use sliders to resize.</p>
+    </section>
+
+    <aside class="control-panel" aria-label="Probability controls">
+      <form class="slider-stack">
+        <label class="slider-row slider-a">
+          <span>Probability of A</span>
+          <output id="prob-a-output" for="prob-a"></output>
+          <input id="prob-a" class="probability-slider" type="range" min="0.01" max="0.36" step="0.001" />
+        </label>
+
+        <label class="slider-row slider-b">
+          <span>Probability of B</span>
+          <output id="prob-b-output" for="prob-b"></output>
+          <input id="prob-b" class="probability-slider" type="range" min="0.01" max="0.36" step="0.001" />
+        </label>
+      </form>
+
+      <dl class="metric-stack" aria-label="Calculated probabilities">
+        <div class="metric metric-a">
+          <dt>P(A)</dt>
+          <dd id="metric-a"></dd>
+        </div>
+        <div class="metric metric-b">
+          <dt>P(B)</dt>
+          <dd id="metric-b"></dd>
+        </div>
+        <div class="metric metric-intersection">
+          <dt>P(A ∩ B)</dt>
+          <dd id="metric-intersection"></dd>
+        </div>
+        <div class="metric metric-union">
+          <dt>P(A ∪ B)</dt>
+          <dd id="metric-union"></dd>
+        </div>
+      </dl>
+
+      <section class="formula-card" aria-label="Union formula">
+        <p class="eyebrow">UNION FORMULA</p>
+        <p class="formula-title">P(A∪B)=P(A)+P(B)-P(A∩B)</p>
+        <p class="formula-values">
+          <span id="formula-a" class="value-a"></span>
+          <span> + </span>
+          <span id="formula-b" class="value-b"></span>
+          <span> - </span>
+          <span id="formula-intersection" class="value-intersection"></span>
+        </p>
+        <p class="formula-result">
+          <span>= </span><span id="formula-union" class="value-union"></span>
+        </p>
+      </section>
+
+      <p id="insight" class="insight-card"></p>
+    </aside>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+
+</html>
