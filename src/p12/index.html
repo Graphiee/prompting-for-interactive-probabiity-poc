@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contains Duplicate</title>
+  <link rel="stylesheet" href="../lab-styles.css" />
+  <style>
+    body {
+      margin: 0;
+      background: var(--lab-bg);
+    }
+
+    .lab-step-panel-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lab-answer-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lab-answer-label {
+      color: var(--lab-muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .lab-answer-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface);
+      color: var(--lab-ink);
+      font: inherit;
+    }
+
+    .lab-answer-input:focus-visible {
+      outline: 2px solid var(--lab-focus);
+      outline-offset: 3px;
+    }
+
+    .lab-hint,
+    .lab-feedback {
+      display: grid;
+      gap: 8px;
+      padding: 14px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface-soft);
+    }
+
+    .lab-feedback-correct {
+      border-color: var(--lab-accent-green);
+      background: var(--lab-accent-green-soft);
+    }
+
+    .lab-feedback-incorrect {
+      border-color: var(--lab-accent-violet);
+      background: var(--lab-accent-violet-soft);
+    }
+
+    .lab-hint-title,
+    .lab-feedback-title,
+    .lab-feedback-explanation {
+      margin: 0;
+    }
+
+    .lab-hint-title,
+    .lab-feedback-title {
+      color: var(--lab-ink);
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .lab-feedback-explanation {
+      color: var(--lab-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .p12-viz {
+      display: grid;
+      gap: 16px;
+    }
+
+    .p12-array {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 10px;
+    }
+
+    .p12-array-cell {
+      min-height: 76px;
+      display: grid;
+      align-content: center;
+      gap: 6px;
+      padding: 12px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface);
+    }
+
+    .p12-array-cell.is-active {
+      border-color: var(--lab-accent-blue);
+      background: var(--lab-accent-blue-soft);
+    }
+
+    .p12-array-cell.is-prior-repeat {
+      border-color: var(--lab-accent-green);
+      background: var(--lab-accent-green-soft);
+    }
+
+    .p12-array-cell.is-duplicate {
+      border-color: var(--lab-accent-pink);
+      background: var(--lab-accent-pink-soft);
+    }
+
+    .p12-array-index {
+      color: var(--lab-muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .p12-array-value {
+      color: var(--lab-ink);
+      font-family: var(--lab-mono);
+      font-size: 24px;
+      font-weight: 750;
+      line-height: 1;
+    }
+
+    .p12-trace {
+      display: grid;
+      overflow: hidden;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface);
+    }
+
+    .p12-trace-row {
+      display: grid;
+      grid-template-columns: 0.5fr 0.7fr 1.5fr 1fr;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--lab-border);
+      color: var(--lab-muted);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+
+    .p12-trace-row:first-child {
+      border-top: 0;
+    }
+
+    .p12-trace-row.is-header {
+      color: var(--lab-ink);
+      background: var(--lab-surface-soft);
+    }
+
+    .p12-trace-row.is-duplicate {
+      color: var(--lab-ink);
+      background: var(--lab-accent-pink-soft);
+    }
+
+    .p12-trace-cell {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .p12-code {
+      margin: 0;
+      overflow-x: auto;
+      padding: 16px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface-soft);
+      color: var(--lab-ink);
+      font-family: var(--lab-mono);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .p12-viz-caption {
+      margin: 0;
+      color: var(--lab-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 640px) {
+      .p12-trace-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="./runtime.js"></script>
+</body>
+
+</html>

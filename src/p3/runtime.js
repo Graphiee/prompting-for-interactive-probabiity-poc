@@ -1,4 +1,3 @@
-import { spec } from "./spec.js";
 import {
   createSvg,
   createTickSlider,
@@ -11,12 +10,13 @@ import {
   setAttrs,
   svgEl,
   ticks,
-} from "../primitives/index.js";
+} from "../vis-primitives/index.js";
 import {
   buildBernoulliSeries,
   formatProbability,
   selectBernoulliPoint,
 } from "./model.js";
+import { spec } from "./spec.js";
 
 const state = {
   p: spec.controls.p.value,

@@ -1,4 +1,3 @@
-import { spec } from "./spec.js";
 import {
   createReadout,
   createSvg,
@@ -13,11 +12,12 @@ import {
   linearScale,
   svgEl,
   ticks,
-} from "../primitives/index.js";
+} from "../vis-primitives/index.js";
 import {
   buildBirthdaySeries,
   buildSelectedBirthday,
 } from "./model.js";
+import { spec } from "./spec.js";
 
 const state = {
   selectedN: spec.slider.value,

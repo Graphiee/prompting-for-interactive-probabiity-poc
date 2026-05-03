@@ -1,4 +1,3 @@
-import { spec } from "./spec.js";
 import {
   createSvg,
   createVideoProgressBar,
@@ -6,8 +5,9 @@ import {
   el,
   setAttrs,
   svgEl,
-} from "../primitives/index.js";
+} from "../vis-primitives/index.js";
 import { buildFrame, buildVennGeometry, normalizeTime } from "./model.js";
+import { spec } from "./spec.js";
 
 const state = {
   currentTimeMs: 0,

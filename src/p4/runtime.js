@@ -1,4 +1,3 @@
-import { spec } from "./spec.js";
 import {
   createSvg,
   createVideoProgressBar,
@@ -6,12 +5,13 @@ import {
   el,
   setAttrs,
   svgEl,
-} from "../primitives/index.js";
+} from "../vis-primitives/index.js";
 import {
   buildFrame,
   buildTimeline,
   normalizeTime,
 } from "./model.js";
+import { spec } from "./spec.js";
 
 const timeline = buildTimeline({
   steps: spec.steps,

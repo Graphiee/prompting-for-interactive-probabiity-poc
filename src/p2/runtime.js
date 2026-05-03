@@ -1,4 +1,3 @@
-import { spec } from "./spec.js";
 import {
   createPlayPauseButton,
   createSvg,
@@ -14,7 +13,7 @@ import {
   setAttrs,
   svgEl,
   ticks,
-} from "../primitives/index.js";
+} from "../vis-primitives/index.js";
 import {
   buildExperimentSeries,
   buildVisibleRunTicks,
@@ -22,6 +21,7 @@ import {
   selectRun,
   visibleRunWindow,
 } from "./model.js";
+import { spec } from "./spec.js";
 
 const state = {
   selectedRun: spec.slider.value,

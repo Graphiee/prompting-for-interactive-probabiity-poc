@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matching Cards</title>
+  <link rel="stylesheet" href="../lab-styles.css" />
+  <style>
+    body {
+      margin: 0;
+      background: var(--lab-bg);
+    }
+
+    .lab-step-panel-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lab-answer-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lab-answer-label {
+      color: var(--lab-muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .lab-answer-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface);
+      color: var(--lab-ink);
+      font: inherit;
+    }
+
+    .lab-answer-input:focus-visible {
+      outline: 2px solid var(--lab-focus);
+      outline-offset: 3px;
+    }
+
+    .lab-hint,
+    .lab-feedback {
+      display: grid;
+      gap: 8px;
+      padding: 14px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface-soft);
+    }
+
+    .lab-feedback-correct {
+      border-color: var(--lab-accent-green);
+      background: var(--lab-accent-green-soft);
+    }
+
+    .lab-feedback-incorrect {
+      border-color: var(--lab-accent-violet);
+      background: var(--lab-accent-violet-soft);
+    }
+
+    .lab-hint-title,
+    .lab-feedback-title,
+    .lab-feedback-explanation {
+      margin: 0;
+    }
+
+    .lab-hint-title,
+    .lab-feedback-title {
+      color: var(--lab-ink);
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .lab-feedback-explanation {
+      color: var(--lab-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .p10-viz {
+      display: grid;
+      gap: 16px;
+    }
+
+    .p10-viz-table {
+      display: grid;
+      gap: 1px;
+      overflow: auto;
+      padding: 8px;
+      border: 1px solid var(--lab-border-strong);
+      border-radius: 12px;
+      background: var(--lab-border-strong);
+    }
+
+    .p10-viz-row {
+      display: grid;
+      grid-template-columns: 54px repeat(5, minmax(46px, 1fr));
+      gap: 1px;
+      min-width: 360px;
+    }
+
+    .p10-viz-row.is-muted {
+      opacity: 0.46;
+    }
+
+    .p10-viz-row-label,
+    .p10-viz-position,
+    .p10-viz-card {
+      min-height: 44px;
+      display: grid;
+      place-items: center;
+      background: var(--lab-surface);
+    }
+
+    .p10-viz-row-label,
+    .p10-viz-position {
+      color: var(--lab-muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .p10-viz-header-row .p10-viz-position {
+      background: var(--lab-surface-soft);
+    }
+
+    .p10-viz-card {
+      transition: background-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .p10-viz-card.is-match {
+      background: var(--lab-accent-green-soft);
+      box-shadow: inset 0 0 0 2px var(--lab-accent-green);
+    }
+
+    .p10-viz-card.is-deranged {
+      background: var(--lab-accent-blue-soft);
+    }
+
+    .p10-viz-card-label {
+      color: var(--lab-ink);
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .p10-viz-caption {
+      margin: 0;
+      color: var(--lab-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .p10-viz-term-table {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .p10-viz-term {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface-soft);
+    }
+
+    .p10-viz-term-label {
+      color: var(--lab-muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .p10-viz-term-expression {
+      color: var(--lab-ink);
+      font-family: var(--lab-mono);
+      font-size: 14px;
+    }
+
+    .p10-viz-bars {
+      display: grid;
+      gap: 10px;
+    }
+
+    .p10-viz-bar-row {
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr) 52px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .p10-viz-bar-label,
+    .p10-viz-bar-value {
+      color: var(--lab-muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .p10-viz-bar-track {
+      height: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--lab-surface-soft);
+    }
+
+    .p10-viz-bar-fill {
+      display: block;
+      width: var(--p10-bar-value);
+      height: 100%;
+      background: var(--lab-accent-green);
+    }
+
+    @media (max-width: 640px) {
+      .p10-viz-term-table {
+        grid-template-columns: 1fr;
+      }
+
+      .p10-viz-bar-row {
+        grid-template-columns: 42px minmax(0, 1fr);
+      }
+
+      .p10-viz-bar-value {
+        grid-column: 2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="./runtime.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Two Children, One Winter Girl</title>
+  <link rel="stylesheet" href="../lab-styles.css" />
+  <style>
+    body {
+      margin: 0;
+      background: var(--lab-bg);
+    }
+
+    .lab-step-panel-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .lab-answer-field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lab-answer-label {
+      color: var(--lab-muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .lab-answer-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface);
+      color: var(--lab-ink);
+      font: inherit;
+    }
+
+    .lab-answer-input:focus-visible {
+      outline: 2px solid var(--lab-focus);
+      outline-offset: 3px;
+    }
+
+    .lab-hint,
+    .lab-feedback {
+      display: grid;
+      gap: 8px;
+      padding: 14px;
+      border: 1px solid var(--lab-border);
+      border-radius: 12px;
+      background: var(--lab-surface-soft);
+    }
+
+    .lab-feedback-correct {
+      border-color: var(--lab-accent-green);
+      background: var(--lab-accent-green-soft);
+    }
+
+    .lab-feedback-incorrect {
+      border-color: var(--lab-accent-violet);
+      background: var(--lab-accent-violet-soft);
+    }
+
+    .lab-hint-title,
+    .lab-feedback-title,
+    .lab-feedback-explanation {
+      margin: 0;
+    }
+
+    .lab-hint-title,
+    .lab-feedback-title {
+      color: var(--lab-ink);
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .lab-feedback-explanation {
+      color: var(--lab-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .p9-viz {
+      --p9-viz-edge: var(--lab-border-strong);
+      --p9-viz-soft: var(--lab-surface-soft);
+      --p9-viz-condition: var(--lab-accent-blue-soft);
+      --p9-viz-numerator: var(--lab-accent-green-soft);
+      --p9-viz-reference: var(--lab-accent-pink-soft);
+      display: grid;
+      gap: 16px;
+    }
+
+    .p9-viz-readouts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .p9-viz-readout {
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--p9-viz-edge);
+      border-radius: 12px;
+      background: var(--p9-viz-soft);
+    }
+
+    .p9-viz-readout-label {
+      display: block;
+      color: var(--lab-muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .p9-viz-readout-value {
+      display: block;
+      margin-top: 6px;
+      color: var(--lab-ink);
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .p9-viz-profile-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .p9-viz-profile-fact {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--p9-viz-soft);
+    }
+
+    .p9-viz-profile-label,
+    .p9-viz-profile-note {
+      color: var(--lab-muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .p9-viz-profile-label {
+      font-weight: 700;
+    }
+
+    .p9-viz-profile-value {
+      color: var(--lab-ink);
+      font-size: 16px;
+      line-height: 1.15;
+    }
+
+    .p9-viz-grid {
+      display: grid;
+      gap: 1px;
+      overflow: auto;
+      padding: 8px;
+      border: 1px solid var(--p9-viz-edge);
+      border-radius: 12px;
+      background: var(--p9-viz-edge);
+    }
+
+    .p9-viz-grid-row {
+      display: grid;
+      grid-template-columns: 64px repeat(8, minmax(38px, 1fr));
+      gap: 1px;
+      min-width: 440px;
+    }
+
+    .p9-viz-corner,
+    .p9-viz-header-cell,
+    .p9-viz-cell {
+      min-height: 38px;
+      display: grid;
+      place-items: center;
+      background: var(--lab-surface);
+    }
+
+    .p9-viz-corner,
+    .p9-viz-header-cell {
+      color: var(--lab-muted);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .p9-viz-header-cell.is-girl {
+      background: var(--lab-accent-pink-soft);
+    }
+
+    .p9-viz-header-cell.is-key {
+      color: var(--lab-ink);
+      background: var(--p9-viz-reference);
+      box-shadow: inset 0 0 0 2px var(--lab-accent-pink);
+    }
+
+    .p9-viz-cell {
+      transition: background-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .p9-viz-cell.is-reference {
+      background: var(--p9-viz-reference);
+    }
+
+    .p9-viz-cell.is-condition {
+      background: var(--p9-viz-condition);
+    }
+
+    .p9-viz-cell.is-condition-muted {
+      background: var(--p9-viz-condition);
+      opacity: 0.64;
+    }
+
+    .p9-viz-cell.is-numerator {
+      background: var(--p9-viz-numerator);
+      box-shadow: inset 0 0 0 2px var(--lab-accent-green);
+    }
+
+    .p9-viz-cell-label {
+      color: var(--lab-ink);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .p9-viz-caption {
+      margin: 0;
+      color: var(--lab-muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 640px) {
+      .p9-viz-readouts {
+        grid-template-columns: 1fr;
+      }
+
+      .p9-viz-profile-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script type="module" src="./runtime.js"></script>
+</body>
+
+</html>

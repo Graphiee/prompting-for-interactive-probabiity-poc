@@ -1,4 +1,3 @@
-import { spec } from "./spec.js";
 import {
   createSvg,
   createTickSlider,
@@ -6,7 +5,7 @@ import {
   el,
   setAttrs,
   svgEl,
-} from "../primitives/index.js";
+} from "../vis-primitives/index.js";
 import {
   buildFrame,
   buildRegionGeometry,
@@ -14,6 +13,7 @@ import {
   interpolateRegionStates,
   transitionProgress,
 } from "./model.js";
+import { spec } from "./spec.js";
 
 const regionKeys = spec.regions.map((region) => region.key);
 const geometry = buildRegionGeometry({
